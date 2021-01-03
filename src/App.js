@@ -1,11 +1,8 @@
-import React, { useRef, useEffect, useState, createRef } from 'react'
-var k = 50;
-var m = 10;
+import React, { createRef } from 'react'
 var y = 0;
 var t = 1;
 var g = 9.8;
 var v = 0;
-var dt = 0.11;
 var F;
 var a = 1;
 
@@ -18,9 +15,13 @@ class App extends React.Component {
     this.canvasRef = createRef();
     this.state = {
       stateK: 50,
-      stateM: 5,
+      stateM: 2,
     }
   }
+
+
+
+
 
   componentDidMount() {
     this.move()
@@ -30,14 +31,14 @@ class App extends React.Component {
     const {stateK} = this.state;
     const {stateM} = this.state;
     t = t + dt;
-  F = 5*stateM*g - (0.05 * stateK)*y;
-  a = F/stateM;
-  v = v + a*dt;
+    F = 5*stateM*g - (0.05 * stateK)*y;
+    a = F/stateM;
+    v = v + a*dt;
     y = y + v*dt + a*(dt*dt)/2;
     ctx.clearRect(0, 0, 300, 800);
-  ctx.fillStyle = "grey";
-  ctx.fillRect(149.7 - (stateK / 30), 0, 1 + (stateK / 15), 75 + y);
-  ctx.fillStyle = "black";
+    ctx.fillStyle = "grey";
+    ctx.fillRect(149.7 - (stateK / 30), 0, 1 + (stateK / 15), 75 + y);
+    ctx.fillStyle = "black";
     ctx.fillRect((300 - 10 * stateM) / 2, 75 + y, 10 * stateM, 20 * stateM);
   };
 
@@ -68,6 +69,14 @@ class App extends React.Component {
     e.preventDefault();
   };
 
+  gravityoff = (ctx) => {
+    g = 0;
+  };
+
+  gravityon = (e) => {
+    g = 9.8;
+  };
+
 
   render () {
     return (
@@ -86,7 +95,18 @@ class App extends React.Component {
             {' '} кг
           </p>
 
-          <button id="mainButton">ЗАПУСК</button>
+          <button>
+          ЗАПУСК
+          </button>
+          {' '}
+          <button onClick={() => this.gravityoff()}>
+          ГРАВИТАЦИЯ выкл
+          </button>
+          {' '}
+          <button onClick={() => this.gravityon()}>
+          ГРАВИТАЦИЯ вкл
+          </button>
+
         </div>
         <canvas ref={ this.canvasRef } { ...this.props }/>
       </>
