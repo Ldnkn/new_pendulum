@@ -5,6 +5,7 @@ var g = 9.8;
 var v = 0;
 var F;
 var a = 1;
+var i = 0;
 
 let prevTime = undefined;
 
@@ -16,7 +17,7 @@ class App extends React.Component {
     this.state = {
       stateK: 50,
       stateM: 2,
-      flag:false,
+      flag: false,
     }
   }
 
@@ -67,10 +68,14 @@ class App extends React.Component {
   };
 
 
-  gravityoff =() => {
-    this.setState({flag: true});
-    g = 0;
+  gravity = () => {
+    if (i % 2 === 0) {
+      g=0;
+    } else {
+      g=9.8;
     }
+    i=i+1
+  }
 
 
   render () {
@@ -90,15 +95,10 @@ class App extends React.Component {
             {' '} кг
           </p>
 
-          <div className="wrapper">
-          <div className="block" backgroundColor={this.state.flag === true ? 'red': 'blue'}>
           <p>
-          отключить гравитацию
-          <input type="radio" onClick={ this.gravityoff } /> 
+          Отключить гравитацию
+          <input type="checkbox" onChange={ this.gravity } /> 
           </p>
-          </div>
-          </div>
-  
 
         </div>
         <canvas ref={ this.canvasRef } { ...this.props }/>
