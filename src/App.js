@@ -16,12 +16,9 @@ class App extends React.Component {
     this.state = {
       stateK: 50,
       stateM: 2,
+      flag:false,
     }
   }
-
-
-
-
 
   componentDidMount() {
     this.move()
@@ -69,13 +66,11 @@ class App extends React.Component {
     e.preventDefault();
   };
 
-  gravityoff = (ctx) => {
-    g = 0;
-  };
 
-  gravityon = (e) => {
-    g = 9.8;
-  };
+  gravityoff =() => {
+    this.setState({flag: true});
+    g = 0;
+    }
 
 
   render () {
@@ -95,17 +90,15 @@ class App extends React.Component {
             {' '} кг
           </p>
 
-          <button>
-          ЗАПУСК
-          </button>
-          {' '}
-          <button onClick={() => this.gravityoff()}>
-          ГРАВИТАЦИЯ выкл
-          </button>
-          {' '}
-          <button onClick={() => this.gravityon()}>
-          ГРАВИТАЦИЯ вкл
-          </button>
+          <div className="wrapper">
+          <div className="block" backgroundColor={this.state.flag === true ? 'red': 'blue'}>
+          <p>
+          отключить гравитацию
+          <input type="radio" onClick={ this.gravityoff } /> 
+          </p>
+          </div>
+          </div>
+  
 
         </div>
         <canvas ref={ this.canvasRef } { ...this.props }/>
