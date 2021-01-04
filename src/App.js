@@ -1,7 +1,8 @@
 import React, { createRef } from 'react'
+import './index.css'
 var y = 0;
 var t = 1;
-var g = 9.8;
+var g = 0;
 var v = 0;
 var F;
 var a = 1;
@@ -70,9 +71,9 @@ class App extends React.Component {
 
   gravity = () => {
     if (i % 2 === 0) {
-      g=0;
-    } else {
       g=9.8;
+    } else {
+      g=0;
     }
     i=i+1
   }
@@ -96,9 +97,10 @@ class App extends React.Component {
           </p>
 
           <p>
-          Отключить гравитацию
-          <input type="checkbox" onChange={ this.gravity } /> 
+          Гравитация
+          <input type="checkbox" onChange={ this.gravity }/> 
           </p>
+        
 
         </div>
         <canvas ref={ this.canvasRef } { ...this.props }/>
