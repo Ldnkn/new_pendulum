@@ -96,27 +96,26 @@ class App extends React.Component {
             {' '} кг
           </p>
 
-          <p>
-            {/* <div 
-              style={{height: 100, width: 100, background: true ? 'black' : 'green', position: 'absolute'}}>
-            </div> */}
-          </p>
-
           <form>
-            <h1> g = {Gravity ? g=9.8 : g=0}</h1>
+            <p> g = {Gravity ? g = 9.8 : g = 0}</p>
+
             
+
+
             <label>
-            Гравитация
+              Гравитация
               <input type = "checkbox"
-                      checked={Gravity}
-                      onChange={this.onChange}/>
+              checked={Gravity}
+              onChange={this.onChange}/>
             </label>
           </form>
+          <div style={{height: 803, width: 302, background: Gravity ? 'transparent' : 'rgba(29, 59, 59, 0.726)', position: 'absolute'}}></div>
 
         
 
         </div>
         <canvas ref={ this.canvasRef } { ...this.props }/>
+        
       </>
     )
   }
