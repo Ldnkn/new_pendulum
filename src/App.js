@@ -104,6 +104,7 @@ class App extends React.Component {
 
           <form>
             <h1> g = {Gravity ? g=9.8 : g=0}</h1>
+            
             <label>
             Гравитация
               <input type = "checkbox"
