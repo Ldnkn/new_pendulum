@@ -1,16 +1,24 @@
 import React, { createRef } from 'react'
 import './index.css'
+
 var y = 0;
 var t = 1;
 var g = 0;
 var v = 0;
 var F;
 var a = 1;
-var i = 0;
 
 let prevTime = undefined;
 
 class App extends React.Component {
+
+  state ={
+    Gravity : false
+  };
+
+  onChange = e =>{
+    this.setState({Gravity : e.target.checked});
+  }
 
   constructor(props) {
     super(props);
@@ -45,11 +53,11 @@ class App extends React.Component {
     let deltaT = !!prevTime ? timestamp - prevTime : 0;
     prevTime = timestamp;
     const canvas = this.canvasRef.current;
+    if (!canvas) return;
     const context = canvas.getContext('2d')
     canvas.width = 300;
     canvas.height = 800;
     this.draw(context, deltaT/1000);
-
     window.requestAnimationFrame(this.move);
   };
 
@@ -69,17 +77,9 @@ class App extends React.Component {
   };
 
 
-  gravity = () => {
-    if (i % 2 === 0) {
-      g=9.8;
-    } else {
-      g=0;
-    }
-    i=i+1
-  }
-
 
   render () {
+    const {Gravity} = this.state;
     return (
       <>
         <div>
@@ -97,9 +97,21 @@ class App extends React.Component {
           </p>
 
           <p>
-          Гравитация
-          <input type="checkbox" onChange={ this.gravity }/> 
+            {/* <div 
+              style={{height: 100, width: 100, background: true ? 'black' : 'green', position: 'absolute'}}>
+            </div> */}
           </p>
+
+          <form>
+            <h1> g = {Gravity ? g=9.8 : g=0}</h1>
+            <label>
+            Гравитация
+              <input type = "checkbox"
+                      checked={Gravity}
+                      onChange={this.onChange}/>
+            </label>
+          </form>
+
         
 
         </div>
@@ -108,7 +120,6 @@ class App extends React.Component {
     )
   }
 }
-
 
 
 export default App
